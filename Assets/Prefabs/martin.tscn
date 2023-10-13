@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=3 uid="uid://cpnqfdnsjscbq"]
+
+[ext_resource type="Script" path="res://Assets/Prefabs/Player.gd" id="1_777jk"]
+[ext_resource type="Texture2D" uid="uid://rloeebyhn0pw" path="res://Assets/Sprites/Characters/character1_23x29.png" id="1_q1xci"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fv0kk"]
+height = 26.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7pkq"]
+atlas = ExtResource("1_q1xci")
+region = Rect2(69, 0, 23, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25iro"]
+atlas = ExtResource("1_q1xci")
+region = Rect2(23, 0, 23, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f78f6"]
+atlas = ExtResource("1_q1xci")
+region = Rect2(0, 0, 23, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scsby"]
+atlas = ExtResource("1_q1xci")
+region = Rect2(23, 0, 23, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xr37m"]
+atlas = ExtResource("1_q1xci")
+region = Rect2(46, 0, 23, 29)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nb08n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7pkq")
+}],
+"loop": true,
+"name": &"Death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25iro")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f78f6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scsby")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xr37m")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
+}]
+
+[node name="Martin" type="CharacterBody2D"]
+position = Vector2(38, 1)
+script = ExtResource("1_777jk")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_fv0kk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_nb08n")
+animation = &"Run"
+frame_progress = 0.134772
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
