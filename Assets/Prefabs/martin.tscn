@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://cpnqfdnsjscbq"]
 
-[ext_resource type="Script" path="res://Assets/Prefabs/Player.gd" id="1_777jk"]
+[ext_resource type="Script" path="res://Assets/Scripts/Player.gd" id="1_777jk"]
 [ext_resource type="Texture2D" uid="uid://rloeebyhn0pw" path="res://Assets/Sprites/Characters/character1_23x29.png" id="1_q1xci"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fv0kk"]
@@ -60,7 +60,7 @@ animations = [{
 }]
 
 [node name="Martin" type="CharacterBody2D"]
-position = Vector2(38, 1)
+position = Vector2(45, 2)
 script = ExtResource("1_777jk")
 metadata/_edit_group_ = true
 
@@ -74,3 +74,6 @@ frame_progress = 0.134772
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
+
+[node name="Marker2D" type="Marker2D" parent="." groups=["bullet_point"]]
+position = Vector2(13, 6)

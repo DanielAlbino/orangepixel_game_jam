@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bi32ek8bsfj07"]
+
+[ext_resource type="Texture2D" uid="uid://cujw6kpik86bj" path="res://Assets/Sprites/Miscellaneous/bullets.png" id="1_5nmfc"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_aq5bf"]
+radius = 4.0
+height = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50njc"]
+atlas = ExtResource("1_5nmfc")
+region = Rect2(0, 1, 9, 4)
+
+[node name="Bullets" type="StaticBody2D"]
+position = Vector2(9, -12)
+scale = Vector2(0.4, 0.4)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_aq5bf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_50njc")
