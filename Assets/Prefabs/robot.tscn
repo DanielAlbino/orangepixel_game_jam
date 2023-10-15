@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwftlp5qcagjh"]
+[gd_scene load_steps=21 format=3 uid="uid://cwftlp5qcagjh"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Enemy.gd" id="1_dl8qv"]
 [ext_resource type="Texture2D" uid="uid://bd67pg1fq27qq" path="res://Assets/Sprites/Characters/robot_creature_10x10.png" id="2_50j74"]
+[ext_resource type="Texture2D" uid="uid://b7thy6123hm14" path="res://Assets/Sprites/SpecialFX/explosion_16x16.png" id="3_baeh8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dt6iv"]
 radius = 4.0
@@ -9,6 +10,42 @@ radius = 4.0
 [sub_resource type="AtlasTexture" id="AtlasTexture_yqrpm"]
 atlas = ExtResource("2_50j74")
 region = Rect2(20, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llcx1"]
+atlas = ExtResource("3_baeh8")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_af771"]
+atlas = ExtResource("3_baeh8")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_duw6b"]
+atlas = ExtResource("3_baeh8")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_300fn"]
+atlas = ExtResource("3_baeh8")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsklu"]
+atlas = ExtResource("3_baeh8")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30je1"]
+atlas = ExtResource("3_baeh8")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7oeou"]
+atlas = ExtResource("3_baeh8")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7kuuo"]
+atlas = ExtResource("3_baeh8")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vsn2i"]
+atlas = ExtResource("3_baeh8")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p3lby"]
 atlas = ExtResource("2_50j74")
@@ -34,6 +71,43 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_llcx1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_af771")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_duw6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_300fn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsklu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30je1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7oeou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7kuuo")
+}],
+"loop": true,
+"name": &"Exploding",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vsn2i")
+}],
+"loop": true,
+"name": &"Hit",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_p3lby")
 }],
 "loop": true,
@@ -55,6 +129,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_wpfg1"]
 radius = 50.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_k582m"]
+radius = 6.0
+
 [node name="Robot" type="CharacterBody2D"]
 position = Vector2(145, -29)
 script = ExtResource("1_dl8qv")
@@ -65,12 +142,20 @@ shape = SubResource("CircleShape2D_dt6iv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c1akc")
-animation = &"Death"
+animation = &"Hit"
+frame_progress = 0.775922
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Detect_Player" type="Area2D" parent="."]
 collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detect_Player"]
 shape = SubResource("CircleShape2D_wpfg1")
+debug_color = Color(0, 0.0784314, 0.701961, 0.419608)
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[node name="Detect_bullets" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detect_bullets"]
+shape = SubResource("CircleShape2D_k582m")
+
+[connection signal="body_entered" from="Detect_Player" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Detect_bullets" to="." method="_on_detect_bullets_body_entered"]

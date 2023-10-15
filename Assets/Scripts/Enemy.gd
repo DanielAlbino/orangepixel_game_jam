@@ -12,17 +12,28 @@ func _ready():
 	choosenMove = randi_range(0,4)
 
 func _physics_process(delta):
-	if !isAttacking:
-		if timer <= 0:
+	if life > 0:
+		if !isAttacking:
+			if timer <= 0:
+				timer = randi_range(3,5)
+				choosenMove = randi_range(0,4)
+			else:
+				timer -= 0.05
+				handleBasicMovement(choosenMove)
+		var collisions = move_and_collide(velocity*delta)
+		if collisions != null:
 			timer = randi_range(3,5)
 			choosenMove = randi_range(0,4)
-		else:
-			timer -= 0.05
-			handleBasicMovement(choosenMove)
-	var collisions = move_and_collide(velocity*delta)
-	if collisions != null:
-		timer = randi_range(3,5)
-		choosenMove = randi_range(0,4)
+	else:
+		velocity.x = 0
+		velocity.y = 0
+		spr.play("Exploding")
+		if spr.get_frame() == 7:
+			queue_free()
+		
+	
+		
+		
 
 	
 	# ['idle','move_up', 'move_down', 'move_left', 'move_right']
@@ -59,7 +70,6 @@ func handleBasicMovement(move):
 		velocity.x = speed
 		velocity.y = 0
 	
-		
 
 func _on_area_2d_body_entered(body):
 	if body.name == "Martin":
@@ -67,9 +77,19 @@ func _on_area_2d_body_entered(body):
 
 
 func attackPlayer():
-	var player = get_tree().get_root().get_node("res://Martin.tscn")
-	print( self.global_position)
+	pass
+	# var player = get_tree().get_root().get_node("res://Martin.tscn")
+	#print( self.global_position)
 	#print(player.global_position)
 	#print((player.global_position - self.global_position).normalized())
 	#var dir = (player.global_position - self.global_position).normalized()
 	# move_and_collide(dir * speed)
+
+
+func _on_detect_bullets_body_entered(body):
+	if(body.name == "Bullets"):
+		life -= 15
+		spr.play("Hit")
+		velocity.x = 0
+		velocity.y = 0
+		timer = 0
