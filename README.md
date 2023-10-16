@@ -1,7 +1,9 @@
-##The Challenge!
+#The Challenge!
+
 Keeping it light and simple, here’s the concept and how you can join in:
 
-###Download a copy of the asset pack
+#Download a copy of the asset pack
+
 Grab it and make sure to check out Discord (#game-jam) as it IS possible that I’ll be adding new stuff to it if people request certain things!
 Grab your favorite programming tools and engines and what ever you use to make a game
 I would love to be able to play the results on my PC in some way to show it in a future video
