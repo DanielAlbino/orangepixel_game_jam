@@ -10,7 +10,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var collision = move_and_collide(velocity * speed * delta)
+	move_and_collide(velocity * speed * delta)
 	timer -= 0.05
 	
 func _on_area_2d_body_entered(body):

@@ -15,7 +15,7 @@ run/main_scene="res://Assets/Scenes/World.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 boot_splash/bg_color=Color(1, 1, 1, 1)
 boot_splash/image="res://Assets/Splash Screen/zarcade games - indie game developer.png"
-config/icon="res://Assets/Sprites/icon.svg"
+config/icon="res://Assets/Splash Screen/zarcade-vector-logo.png"
 
 [dotnet]
 

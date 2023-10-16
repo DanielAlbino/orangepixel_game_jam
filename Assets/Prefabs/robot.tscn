@@ -130,7 +130,7 @@ animations = [{
 radius = 50.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k582m"]
-radius = 6.0
+radius = 7.0
 
 [node name="Robot" type="CharacterBody2D"]
 position = Vector2(145, -29)
@@ -142,10 +142,10 @@ shape = SubResource("CircleShape2D_dt6iv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c1akc")
-animation = &"Hit"
-frame_progress = 0.775922
+animation = &"Idle"
 
 [node name="Detect_Player" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detect_Player"]
@@ -156,6 +156,8 @@ debug_color = Color(0, 0.0784314, 0.701961, 0.419608)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detect_bullets"]
 shape = SubResource("CircleShape2D_k582m")
+
+[node name="Marker2D" type="Marker2D" parent="."]
 
 [connection signal="body_entered" from="Detect_Player" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Detect_bullets" to="." method="_on_detect_bullets_body_entered"]

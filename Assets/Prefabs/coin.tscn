@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://btgxoydc27uwe"]
+[gd_scene load_steps=10 format=3 uid="uid://btgxoydc27uwe"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Coin.gd" id="1_nw04b"]
 [ext_resource type="Texture2D" uid="uid://cqbda1lvmuq2l" path="res://Assets/Sprites/Miscellaneous/tinycoins_8x8.png" id="2_4f31t"]
@@ -42,6 +42,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ank2s"]
 radius = 3.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ihgas"]
+radius = 5.0
+
 [node name="Coin" type="StaticBody2D"]
 script = ExtResource("1_nw04b")
 
@@ -51,4 +54,13 @@ animation = &"Rotate"
 frame_progress = 0.217081
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_ank2s")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ihgas")
+debug_color = Color(0.945098, 0.156863, 0.439216, 0.419608)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -6,7 +6,7 @@ var timer
 var choosenMove
 var life = 50
 
-
+const coinPath = preload("res://Assets/Prefabs/coin.tscn")
 func _ready():
 	timer = 5
 	choosenMove = randi_range(0,4)
@@ -29,12 +29,19 @@ func _physics_process(delta):
 		velocity.y = 0
 		spr.play("Exploding")
 		if spr.get_frame() == 7:
-			queue_free()
+			initializeCoin()
 		
+		
+		
+func initializeCoin():
+	var coin = coinPath.instantiate()
+	get_parent().add_child(coin)
+	var _position = self.global_position
+	coin.position = _position
+	removeObject()
 	
-		
-		
-
+func removeObject():
+	queue_free()
 	
 	# ['idle','move_up', 'move_down', 'move_left', 'move_right']
 func handleBasicMovement(move):
