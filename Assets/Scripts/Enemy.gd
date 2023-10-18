@@ -27,11 +27,7 @@ func _physics_process(delta):
 	else:
 		velocity.x = 0
 		velocity.y = 0
-		spr.play("Exploding")
-		if spr.get_frame() == 7:
-			initializeCoin()
-		
-		
+		explode()
 		
 func initializeCoin():
 	var coin = coinPath.instantiate()
@@ -100,3 +96,10 @@ func _on_detect_bullets_body_entered(body):
 		velocity.x = 0
 		velocity.y = 0
 		timer = 0
+	if(body.name == "Martin"):
+		life = 0
+			
+func explode():
+	spr.play("Exploding")
+	if spr.get_frame() == 7:
+		initializeCoin()	
