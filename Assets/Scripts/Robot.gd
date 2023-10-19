@@ -1,6 +1,6 @@
 extends CharacterBody2D
 @onready var spr = $AnimatedSprite2D
-const speed = 50
+const speed = 100
 var isAttacking = false
 var timer
 var choosenMove
@@ -15,7 +15,7 @@ func _physics_process(delta):
 	if life > 0:
 		if !isAttacking:
 			if timer <= 0:
-				timer = randi_range(5,10)
+				timer = randi_range(3,5)
 				choosenMove = randi_range(0,4)
 			else:
 				timer -= 0.05
@@ -74,40 +74,17 @@ func handleBasicMovement(move):
 		velocity.y = 0
 	
 
-func _on_area_2d_body_entered(body):
-	if body:
-		timer = 0
-	if body.name == "Martin":
-		attackPlayer()# Replace with function body.
-
-
-func attackPlayer():
-	print("attacking")
-	pass
-	# var player = get_tree().get_root().get_node("res://Martin.tscn")
-	#print( self.global_position)
-	#print(player.global_position)
-	#print((player.global_position - self.global_position).normalized())
-	#var dir = (player.global_position - self.global_position).normalized()
-	# move_and_collide(dir * speed)
-
-
 func _on_detect_bullets_body_entered(body):
 	if(body.name == "Bullets"):
 		life -= 15
 		spr.play("Hit")
 		velocity.x = 0
 		velocity.y = 0
-		if life <= 0:
-			timer = 0.2
-		else: 
-			timer = 0
-
+		timer = 0
+	if(body.name == "Martin"):
+		life = 0
 			
 func explode():
-	print(timer)
-	spr.play("Death")
-	if spr.get_frame() == 0 && timer <= 0:
+	spr.play("Exploding")
+	if spr.get_frame() == 7:
 		initializeCoin()	
-	else:
-		timer -= 0.01

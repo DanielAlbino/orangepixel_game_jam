@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dgjr6rru1lx4g"]
+[gd_scene load_steps=12 format=3 uid="uid://dgjr6rru1lx4g"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/Player.gd" id="1_ep3jl"]
 [ext_resource type="Texture2D" uid="uid://cuddnvicy5x08" path="res://Assets/Sprites/Characters/character2_23x29.png" id="1_n50se"]
+[ext_resource type="Script" path="res://Assets/Scripts/Enemy.gd" id="1_qkqkp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fv0kk"]
+radius = 9.0
+height = 22.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v1yas"]
 atlas = ExtResource("1_n50se")
@@ -58,14 +60,40 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8syf4"]
+radius = 124.0
+height = 248.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ldayb"]
+radius = 11.0
+height = 26.0
+
 [node name="Jonhy" type="CharacterBody2D"]
-script = ExtResource("1_ep3jl")
+script = ExtResource("1_qkqkp")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_fv0kk")
+debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_uf1gb")
-animation = &"Run"
-frame_progress = 0.0614308
+animation = &"Death"
+frame_progress = 0.241163
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(11, 4)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_8syf4")
+
+[node name="detect_bullets" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detect_bullets"]
+shape = SubResource("CapsuleShape2D_ldayb")
+debug_color = Color(0.976471, 0, 0.4, 0.419608)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="detect_bullets" to="." method="_on_detect_bullets_body_entered"]
