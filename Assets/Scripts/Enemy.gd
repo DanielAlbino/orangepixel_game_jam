@@ -7,7 +7,7 @@ var choosenMove
 var life = 50
 var bullet_shoot_speed = -1
 var isShooting = false
-var bullet_spawner = 0.2
+var bullet_spawner = 0.3
 
 var path
 const bulletPath = preload("res://Assets/Prefabs/enemy_bullets.tscn")
@@ -32,7 +32,7 @@ func _physics_process(delta):
 			choosenMove = randi_range(0,4)
 		if isShooting:
 			if bullet_spawner <= 0:
-				bullet_spawner = 0.2
+				bullet_spawner = 0.3
 				shoot(bullet_shoot_speed)
 			else:
 				bullet_spawner -= 0.01
@@ -134,6 +134,8 @@ func shoot(bullet_shoot_pos):
 	var _position = $Marker2D.global_position
 	if bullet_shoot_pos < 0:
 		_position.x -= 30
+	else:
+		_position.x += 10
 	bullet.position = _position
 	bullet.velocity = player.global_position - bullet.position
 

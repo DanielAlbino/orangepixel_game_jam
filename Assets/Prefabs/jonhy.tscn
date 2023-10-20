@@ -70,7 +70,6 @@ height = 26.0
 
 [node name="Jonhy" type="CharacterBody2D"]
 script = ExtResource("1_qkqkp")
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_fv0kk")
@@ -80,9 +79,6 @@ debug_color = Color(0, 0.6, 0.701961, 0)
 sprite_frames = SubResource("SpriteFrames_uf1gb")
 animation = &"Death"
 frame_progress = 0.241163
-
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(11, 4)
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -94,6 +90,9 @@ shape = SubResource("CapsuleShape2D_8syf4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detect_bullets"]
 shape = SubResource("CapsuleShape2D_ldayb")
 debug_color = Color(0.976471, 0, 0.4, 0.419608)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(11, 4)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
