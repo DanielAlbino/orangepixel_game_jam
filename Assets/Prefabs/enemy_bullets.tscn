@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://i5eqs4jip8x7"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/enemy_bullets.gd" id="1_5anbq"]
+[ext_resource type="Texture2D" uid="uid://cujw6kpik86bj" path="res://Assets/Sprites/Miscellaneous/bullets.png" id="2_qg8bd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hppbd"]
+radius = 2.0
+height = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3isd7"]
+atlas = ExtResource("2_qg8bd")
+region = Rect2(16, 17, 4, 9)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yj0nr"]
+radius = 3.0
+height = 10.0
+
+[node name="enemy_bullets" type="StaticBody2D"]
+script = ExtResource("1_5anbq")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_hppbd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = SubResource("AtlasTexture_3isd7")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_yj0nr")
+debug_color = Color(0.984314, 0, 0.356863, 0.419608)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

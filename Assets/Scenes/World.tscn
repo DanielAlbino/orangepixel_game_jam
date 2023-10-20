@@ -262,6 +262,13 @@ position = Vector2(456, -96)
 [node name="Drums3" parent="." instance=ExtResource("4_n5oom")]
 position = Vector2(824, -273)
 
+[node name="Drums5" parent="." instance=ExtResource("4_n5oom")]
+position = Vector2(1400, -128)
+
+[node name="Drums6" parent="." instance=ExtResource("4_n5oom")]
+position = Vector2(1295, -232)
+rotation = 0.0
+
 [node name="Drums4" parent="." instance=ExtResource("4_n5oom")]
 position = Vector2(937, -337)
 
@@ -269,7 +276,13 @@ position = Vector2(937, -337)
 position = Vector2(346, -10)
 
 [node name="Jonhy2" parent="." instance=ExtResource("5_3cxyl")]
-position = Vector2(1169, -331)
+position = Vector2(1192, -333)
 
 [node name="Jonhy3" parent="." instance=ExtResource("5_3cxyl")]
-position = Vector2(1530, -210)
+position = Vector2(1528, -195)
+
+[node name="Jonhy4" parent="." instance=ExtResource("5_3cxyl")]
+position = Vector2(681, 108)
+
+[node name="Jonhy5" parent="." instance=ExtResource("5_3cxyl")]
+position = Vector2(831, -342)

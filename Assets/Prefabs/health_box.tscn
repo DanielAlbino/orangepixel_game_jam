@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://3xthbmwvt1hh"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/health_box.gd" id="1_j43sm"]
+[ext_resource type="Texture2D" uid="uid://bj7q8b7xmmyxs" path="res://Assets/Sprites/Miscellaneous/hud_elements.png" id="2_s4snj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0jtcy"]
+size = Vector2(8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jhq0"]
+atlas = ExtResource("2_s4snj")
+region = Rect2(2, 15, 8, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_se1nd"]
+size = Vector2(8, 10)
+
+[node name="health_box" type="StaticBody2D"]
+script = ExtResource("1_j43sm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0jtcy")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_1jhq0")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_se1nd")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -5,11 +5,17 @@ var isAttacking = false
 var timer
 var choosenMove
 var life = 50
+var bullet_shoot_speed = -1
+var isShooting = false
+var bullet_spawner = 0.2
 
-const coinPath = preload("res://Assets/Prefabs/coin.tscn")
+var path
+const bulletPath = preload("res://Assets/Prefabs/enemy_bullets.tscn")
+var player
 func _ready():
 	timer = 5
 	choosenMove = randi_range(0,4)
+	player  = get_tree().get_root().get_node("Node2D").get_node("Martin")
 
 func _physics_process(delta):
 	if life > 0:
@@ -24,16 +30,31 @@ func _physics_process(delta):
 		if collisions != null:
 			timer = randi_range(3,5)
 			choosenMove = randi_range(0,4)
+		if isShooting:
+			if bullet_spawner <= 0:
+				bullet_spawner = 0.2
+				shoot(bullet_shoot_speed)
+			else:
+				bullet_spawner -= 0.01
 	else:
 		velocity.x = 0
 		velocity.y = 0
 		explode()
 		
 func initializeCoin():
-	var coin = coinPath.instantiate()
-	get_parent().add_child(coin)
+	var id = randi_range(0,2)
+	print(id)
+	if id == 0:
+		path = preload("res://Assets/Prefabs/coin.tscn")
+	if id == 1:
+		path = preload("res://Assets/Prefabs/health_box.tscn")
+	if id == 2:
+		path = preload("res://Assets/Prefabs/bullets_pack.tscn")
+		
+	var item = path.instantiate()
+	get_parent().add_child(item)
 	var _position = self.global_position
-	coin.position = _position
+	item.position = _position
 	removeObject()
 	
 func removeObject():
@@ -62,34 +83,38 @@ func handleBasicMovement(move):
 	# Enemy move Left
 	if move == 3:
 		spr.play('Run')
-		spr.flip_h = true
+		if !isShooting:
+			spr.flip_h = true
 		velocity.x = -speed
 		velocity.y = 0
 	
 	# Enemy move down
 	if move == 4:
 		spr.play('Run')
-		spr.flip_h = false
+		if !isShooting:
+			spr.flip_h = false
 		velocity.x = speed
 		velocity.y = 0
+		
+	if isShooting:
+		checkPlayerPosition()
+	
+
+func checkPlayerPosition():
+	if self.global_position.x > player.global_position.x :
+		spr.flip_h = true
+		bullet_shoot_speed = -1
+	else:
+		spr.flip_h = false
+		bullet_shoot_speed = 1
 	
 
 func _on_area_2d_body_entered(body):
 	if body:
 		timer = 0
 	if body.name == "Martin":
-		attackPlayer()# Replace with function body.
-
-
-func attackPlayer():
-	print("attacking")
-	pass
-	# var player = get_tree().get_root().get_node("res://Martin.tscn")
-	#print( self.global_position)
-	#print(player.global_position)
-	#print((player.global_position - self.global_position).normalized())
-	#var dir = (player.global_position - self.global_position).normalized()
-	# move_and_collide(dir * speed)
+		isShooting = true
+	#move_and_collide(dir * speed)
 
 
 func _on_detect_bullets_body_entered(body):
@@ -102,12 +127,25 @@ func _on_detect_bullets_body_entered(body):
 			timer = 0.2
 		else: 
 			timer = 0
+			
+func shoot(bullet_shoot_pos):
+	var bullet = bulletPath.instantiate()
+	get_parent().add_child(bullet)
+	var _position = $Marker2D.global_position
+	if bullet_shoot_pos < 0:
+		_position.x -= 30
+	bullet.position = _position
+	bullet.velocity = player.global_position - bullet.position
 
 			
 func explode():
-	print(timer)
 	spr.play("Death")
 	if spr.get_frame() == 0 && timer <= 0:
 		initializeCoin()	
 	else:
 		timer -= 0.01
+
+
+func _on_area_2d_body_exited(body):
+	if body.name == "Martin":
+		isShooting = false

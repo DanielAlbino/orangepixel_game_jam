@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://c866bctkq4uaj"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/bullets_pack.gd" id="1_c43b6"]
+[ext_resource type="Texture2D" uid="uid://bj7q8b7xmmyxs" path="res://Assets/Sprites/Miscellaneous/hud_elements.png" id="2_5hgsm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpuno"]
+size = Vector2(8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahmcb"]
+atlas = ExtResource("2_5hgsm")
+region = Rect2(35, 2, 8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lckx3"]
+size = Vector2(8, 8)
+
+[node name="bullets_pack" type="StaticBody2D"]
+script = ExtResource("1_c43b6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qpuno")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_ahmcb")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_lckx3")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

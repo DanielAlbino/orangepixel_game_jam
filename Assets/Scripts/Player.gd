@@ -4,7 +4,8 @@ extends CharacterBody2D
 var speed = 100
 @onready var spr = $AnimatedSprite2D
 var bullet_shoot_speed = 0
-var life = 100
+var health = 100
+var bullets = 100
 var coinCount = 0
 
 # Constant params
@@ -60,5 +61,5 @@ func shoot(bullet_shoot_pos):
 	if bullet_shoot_pos < 0:
 		_position.x -= 28
 	bullet.position = _position
-	bullet.velocity = Vector2(bullet_shoot_speed,0)
+	bullet.velocity = Vector2(bullet_shoot_pos,0)
 	
