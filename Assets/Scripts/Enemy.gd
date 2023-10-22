@@ -1,6 +1,7 @@
 extends CharacterBody2D
 @onready var spr = $AnimatedSprite2D
 @onready var lifeBar = $TextureProgressBar
+@onready var sound = $AudioStreamPlayer2D
 const speed = 50
 var isAttacking = false
 var timer
@@ -134,6 +135,7 @@ func _on_detect_bullets_body_entered(body):
 func shoot(bullet_shoot_pos):
 	var bullet = bulletPath.instantiate()
 	get_parent().add_child(bullet)
+	sound.play()
 	var _position = $Marker2D.global_position
 	if bullet_shoot_pos < 0:
 		_position.x -= 30

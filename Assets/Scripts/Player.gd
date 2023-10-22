@@ -8,10 +8,14 @@ var speed = 100
 @onready var BulletCounter = $Camera2D/BulletCounter
 @onready var HpCounter = $Camera2D/HpCounter
 @onready var coinCounter = $Camera2D/StaticBody2D/coinCounter
+@onready var hostCounter = $Camera2D/hostCounter
+@onready var sound = $AudioStreamPlayer2D
+
 var bullet_shoot_speed = 0
 var health = 100
 var bullets = 100
 var coinCount = 0
+var hosts = 0
 var hasDroppedBullets = false
 var hasDroppedHealth = false
 # Constant params
@@ -24,6 +28,7 @@ func _ready():
 	HpCounter.text = str(health)
 
 func _physics_process(_delta):
+		
 	if health > 0:
 		handleInputs()
 		move_and_slide()
@@ -46,8 +51,6 @@ func _physics_process(_delta):
 		
 	if coinCount > 0 && health == 2 && !hasDroppedHealth:
 		extraHealth()
-	
-	
 
 func countCoins():
 	coinCounter.text = str(coinCount)
@@ -89,6 +92,7 @@ func shoot(bullet_shoot_pos):
 	bullets -= 1
 	var bullet = bulletPath.instantiate()
 	get_parent().add_child(bullet)
+	sound.play()
 	var _position = $Marker2D.global_position
 	if bullet_shoot_pos < 0:
 		_position.x -= 28

@@ -1,0 +1,89 @@
+[gd_scene load_steps=12 format=3 uid="uid://byjluhbxayovq"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Host.gd" id="1_i5u5x"]
+[ext_resource type="Texture2D" uid="uid://clcc2h4rrbbh5" path="res://Assets/Sprites/Characters/character4_21x28.png" id="2_qckvs"]
+[ext_resource type="Texture2D" uid="uid://dbqxtty12jet1" path="res://Assets/Sprites/Miscellaneous/light.png" id="3_7txnx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kmq1h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3ssm"]
+atlas = ExtResource("2_qckvs")
+region = Rect2(105, 0, 21, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jodpc"]
+atlas = ExtResource("2_qckvs")
+region = Rect2(21, 0, 21, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cedub"]
+atlas = ExtResource("2_qckvs")
+region = Rect2(0, 0, 21, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_weua8"]
+atlas = ExtResource("2_qckvs")
+region = Rect2(21, 0, 21, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7vxb"]
+atlas = ExtResource("2_qckvs")
+region = Rect2(42, 0, 21, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fo2hk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n3ssm")
+}],
+"loop": true,
+"name": &"Die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jodpc")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cedub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_weua8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7vxb")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fk38k"]
+radius = 19.0
+
+[node name="Host" type="CharacterBody2D"]
+position = Vector2(22, -18)
+script = ExtResource("1_i5u5x")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_kmq1h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fo2hk")
+animation = &"Idle"
+flip_h = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_fk38k")
+debug_color = Color(0, 0.627451, 0.490196, 0.419608)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(1.07288e-06, 1.19209e-06)
+scale = Vector2(1.125, 1.1875)
+texture = ExtResource("3_7txnx")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

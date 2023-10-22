@@ -1,10 +1,12 @@
-[gd_scene load_steps=25 format=3 uid="uid://cpnqfdnsjscbq"]
+[gd_scene load_steps=30 format=3 uid="uid://cpnqfdnsjscbq"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Player.gd" id="1_777jk"]
 [ext_resource type="Texture2D" uid="uid://rloeebyhn0pw" path="res://Assets/Sprites/Characters/character1_23x29.png" id="1_q1xci"]
 [ext_resource type="Texture2D" uid="uid://bj7q8b7xmmyxs" path="res://Assets/Sprites/Miscellaneous/hud_elements.png" id="3_cagrp"]
 [ext_resource type="Texture2D" uid="uid://cqbda1lvmuq2l" path="res://Assets/Sprites/Miscellaneous/tinycoins_8x8.png" id="4_27lpx"]
 [ext_resource type="Texture2D" uid="uid://dbqxtty12jet1" path="res://Assets/Sprites/Miscellaneous/light.png" id="5_8fqu7"]
+[ext_resource type="Texture2D" uid="uid://clcc2h4rrbbh5" path="res://Assets/Sprites/Characters/character4_21x28.png" id="5_dtol7"]
+[ext_resource type="AudioStream" uid="uid://dk3mnxjw665ci" path="res://Assets/Sounds/gun_shot.mp3" id="7_omqxc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fv0kk"]
 radius = 8.0
@@ -102,11 +104,24 @@ region = Rect2(12, 0, 33, 13)
 [sub_resource type="LabelSettings" id="LabelSettings_jr2k5"]
 font_size = 10
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bqjft"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2504l"]
+atlas = ExtResource("5_dtol7")
+region = Rect2(21, 0, 21, 29)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_s63q8"]
+blend_mode = 1
+light_mode = 1
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tbvgu"]
 radius = 11.0
 height = 28.0
 
 [node name="Martin" type="CharacterBody2D" groups=["player"]]
+z_index = 5
 position = Vector2(45, 2)
 script = ExtResource("1_777jk")
 
@@ -151,7 +166,7 @@ label_settings = SubResource("LabelSettings_7swtr")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Camera2D"]
 material = SubResource("CanvasItemMaterial_ypiqf")
-position = Vector2(-182, -78)
+position = Vector2(-61, -96)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/StaticBody2D"]
@@ -195,6 +210,22 @@ text = "100
 "
 label_settings = SubResource("LabelSettings_jr2k5")
 
+[node name="Host_Sprite" type="Sprite2D" parent="Camera2D"]
+material = SubResource("CanvasItemMaterial_bqjft")
+position = Vector2(-92.8, -95)
+scale = Vector2(0.4, 0.4)
+texture = SubResource("AtlasTexture_2504l")
+
+[node name="hostCounter" type="Label" parent="Camera2D"]
+material = SubResource("CanvasItemMaterial_s63q8")
+offset_left = -86.8
+offset_top = -101.0
+offset_right = -65.8
+offset_bottom = -86.0
+theme_override_font_sizes/font_size = 8
+text = "0 / 3
+"
+
 [node name="Marker2D" type="Marker2D" parent="." groups=["bullet_point"]]
 position = Vector2(13, 6)
 
@@ -208,5 +239,9 @@ shape = SubResource("CapsuleShape2D_tbvgu")
 color = Color(0.85098, 0.85098, 0.85098, 1)
 texture = ExtResource("5_8fqu7")
 texture_scale = 3.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_omqxc")
+volume_db = -10.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

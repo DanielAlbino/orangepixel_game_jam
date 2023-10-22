@@ -1,11 +1,17 @@
 extends StaticBody2D
 @onready var spr = $AnimatedSprite2D
+@onready var sound = $"../SFX_Explosions"
 var life = 35
 var path
+func _ready():
+	sound.volume_db = -10
 
 func _process(_delta):
+	
 	if life <= 0:
 		spr.play("explode")
+		if spr.get_frame() == 0:
+			sound.play()
 		if spr.get_frame() == 7:
 			initializeCoin()
 	move_and_collide(Vector2(0,0))

@@ -2,13 +2,14 @@ extends CharacterBody2D
 @onready var spr = $AnimatedSprite2D
 @onready var lifeBar = $TextureProgressBar
 @onready var light = $PointLight2D
+@onready var sound = $"../SFX_Explosions"
 const speed = 100
 var isAttacking = false
 var timer
 var choosenMove
 var life = 50
-
 const coinPath = preload("res://Assets/Prefabs/coin.tscn")
+
 func _ready():
 	lifeBar.max_value = life
 	timer = 5
@@ -98,6 +99,8 @@ func _on_detect_bullets_body_entered(body):
 			
 func explode():
 	spr.play("Exploding")
+	if spr.get_frame() == 0:
+		sound.play()
 	if spr.get_frame() == 7:
 		initializeCoin()	
 

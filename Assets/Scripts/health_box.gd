@@ -11,8 +11,9 @@ func _process(delta):
 #Verify if the player has enter the area
 func _on_area_2d_body_entered(body):
 	if (body.name == "Martin"):
-		if body.health + health >= 100:
-			body.health = 100
-		else:
-			body.health += health
-		queue_free()
+		if body.health < 100:
+			if body.health + health >= 100:
+				body.health = 100
+			else:
+				body.health += health
+			queue_free()
