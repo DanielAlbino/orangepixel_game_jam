@@ -1,12 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://cpnqfdnsjscbq"]
+[gd_scene load_steps=25 format=3 uid="uid://cpnqfdnsjscbq"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Player.gd" id="1_777jk"]
 [ext_resource type="Texture2D" uid="uid://rloeebyhn0pw" path="res://Assets/Sprites/Characters/character1_23x29.png" id="1_q1xci"]
 [ext_resource type="Texture2D" uid="uid://bj7q8b7xmmyxs" path="res://Assets/Sprites/Miscellaneous/hud_elements.png" id="3_cagrp"]
 [ext_resource type="Texture2D" uid="uid://cqbda1lvmuq2l" path="res://Assets/Sprites/Miscellaneous/tinycoins_8x8.png" id="4_27lpx"]
+[ext_resource type="Texture2D" uid="uid://dbqxtty12jet1" path="res://Assets/Sprites/Miscellaneous/light.png" id="5_8fqu7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fv0kk"]
-height = 26.0
+radius = 8.0
+height = 24.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g7pkq"]
 atlas = ExtResource("1_q1xci")
@@ -61,29 +63,50 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pxqqg"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ypiqf"]
+light_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxa8e"]
 atlas = ExtResource("3_cagrp")
-region = Rect2(0, 13, 45, 13)
+region = Rect2(0, 13, 12, 13)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hr5f5"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yxie0"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k25jv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_t23fm"]
 atlas = ExtResource("3_cagrp")
-region = Rect2(1, 0, 44, 13)
+region = Rect2(12, 13, 33, 13)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_76d6r"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bibj4"]
+atlas = ExtResource("3_cagrp")
+region = Rect2(45, 13, 33, 13)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7swtr"]
+font_size = 10
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wgllc"]
 radius = 3.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_phxw2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_67jb1"]
 atlas = ExtResource("4_27lpx")
 region = Rect2(0, 0, 8, 8)
 
-[sub_resource type="LabelSettings" id="LabelSettings_h7twu"]
+[sub_resource type="LabelSettings" id="LabelSettings_qe1m4"]
 font_size = 8
 
-[node name="Martin" type="CharacterBody2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qih13"]
+atlas = ExtResource("3_cagrp")
+region = Rect2(45, 0, 33, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8x46"]
+atlas = ExtResource("3_cagrp")
+region = Rect2(12, 0, 33, 13)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jr2k5"]
+font_size = 10
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tbvgu"]
+radius = 11.0
+height = 28.0
+
+[node name="Martin" type="CharacterBody2D" groups=["player"]]
 position = Vector2(45, 2)
 script = ExtResource("1_777jk")
 
@@ -96,49 +119,94 @@ animation = &"Run"
 frame_progress = 0.134772
 
 [node name="Camera2D" type="Camera2D" parent="."]
+z_index = 3
 zoom = Vector2(3, 3)
 
-[node name="HP" type="StaticBody2D" parent="Camera2D"]
-position = Vector2(-165, -97)
-metadata/_edit_group_ = true
+[node name="HP" type="Sprite2D" parent="Camera2D"]
+z_index = 3
+material = SubResource("CanvasItemMaterial_ypiqf")
+position = Vector2(-179, -96)
+texture = SubResource("AtlasTexture_dxa8e")
 
-[node name="Sprite2D" type="Sprite2D" parent="Camera2D/HP"]
-texture = SubResource("AtlasTexture_pxqqg")
+[node name="HPBar" type="TextureProgressBar" parent="Camera2D"]
+z_index = 3
+material = SubResource("CanvasItemMaterial_ypiqf")
+offset_left = -173.0
+offset_top = -102.0
+offset_right = -140.0
+offset_bottom = -89.0
+value = 100.0
+texture_under = SubResource("AtlasTexture_t23fm")
+texture_progress = SubResource("AtlasTexture_bibj4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/HP"]
-shape = SubResource("RectangleShape2D_hr5f5")
-disabled = true
-
-[node name="Bullets" type="StaticBody2D" parent="Camera2D"]
-position = Vector2(-115, -97)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Bullets"]
-shape = SubResource("RectangleShape2D_yxie0")
-disabled = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Camera2D/Bullets"]
-texture = SubResource("AtlasTexture_k25jv")
+[node name="HpCounter" type="Label" parent="Camera2D"]
+z_index = 3
+material = SubResource("CanvasItemMaterial_ypiqf")
+offset_left = -166.0
+offset_top = -103.0
+offset_right = -146.0
+offset_bottom = -86.0
+text = "100"
+label_settings = SubResource("LabelSettings_7swtr")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Camera2D"]
-position = Vector2(-183, -80)
+material = SubResource("CanvasItemMaterial_ypiqf")
+position = Vector2(-182, -78)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/StaticBody2D"]
-shape = SubResource("CircleShape2D_76d6r")
+material = SubResource("CanvasItemMaterial_ypiqf")
+shape = SubResource("CircleShape2D_wgllc")
 disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Camera2D/StaticBody2D"]
+material = SubResource("CanvasItemMaterial_ypiqf")
 position = Vector2(0, 1)
-texture = SubResource("AtlasTexture_phxw2")
+texture = SubResource("AtlasTexture_67jb1")
 
 [node name="coinCounter" type="Label" parent="Camera2D/StaticBody2D"]
+material = SubResource("CanvasItemMaterial_ypiqf")
 offset_left = 5.0
 offset_top = -5.0
 offset_right = 50.0
 offset_bottom = 10.0
 text = "0"
-label_settings = SubResource("LabelSettings_h7twu")
+label_settings = SubResource("LabelSettings_qe1m4")
+
+[node name="bulletsBar" type="TextureProgressBar" parent="Camera2D"]
+z_index = 3
+material = SubResource("CanvasItemMaterial_ypiqf")
+offset_left = -136.0
+offset_top = -102.0
+offset_right = -103.0
+offset_bottom = -89.0
+value = 100.0
+texture_under = SubResource("AtlasTexture_qih13")
+texture_progress = SubResource("AtlasTexture_c8x46")
+
+[node name="BulletCounter" type="Label" parent="Camera2D"]
+z_index = 3
+material = SubResource("CanvasItemMaterial_ypiqf")
+offset_left = -129.0
+offset_top = -103.0
+offset_right = -111.0
+offset_bottom = -86.0
+text = "100
+"
+label_settings = SubResource("LabelSettings_jr2k5")
 
 [node name="Marker2D" type="Marker2D" parent="." groups=["bullet_point"]]
 position = Vector2(13, 6)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, 0)
+shape = SubResource("CapsuleShape2D_tbvgu")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.85098, 0.85098, 0.85098, 1)
+texture = ExtResource("5_8fqu7")
+texture_scale = 3.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

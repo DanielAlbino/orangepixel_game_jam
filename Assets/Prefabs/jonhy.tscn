@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dgjr6rru1lx4g"]
+[gd_scene load_steps=15 format=3 uid="uid://dgjr6rru1lx4g"]
 
 [ext_resource type="Texture2D" uid="uid://cuddnvicy5x08" path="res://Assets/Sprites/Characters/character2_23x29.png" id="1_n50se"]
 [ext_resource type="Script" path="res://Assets/Scripts/Enemy.gd" id="1_qkqkp"]
+[ext_resource type="Texture2D" uid="uid://bj7q8b7xmmyxs" path="res://Assets/Sprites/Miscellaneous/hud_elements.png" id="3_e7h1g"]
+[ext_resource type="Texture2D" uid="uid://dbqxtty12jet1" path="res://Assets/Sprites/Miscellaneous/light.png" id="4_dcjmm"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fv0kk"]
 radius = 9.0
@@ -61,12 +63,15 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8syf4"]
-radius = 124.0
-height = 248.0
+radius = 146.0
+height = 292.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ldayb"]
-radius = 9.0
-height = 26.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b1yvm"]
+height = 25.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nm3md"]
+atlas = ExtResource("3_e7h1g")
+region = Rect2(47, 17, 29, 3)
 
 [node name="Jonhy" type="CharacterBody2D"]
 script = ExtResource("1_qkqkp")
@@ -88,11 +93,30 @@ shape = SubResource("CapsuleShape2D_8syf4")
 [node name="detect_bullets" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detect_bullets"]
-shape = SubResource("CapsuleShape2D_ldayb")
+position = Vector2(0, 0.5)
+shape = SubResource("CapsuleShape2D_b1yvm")
 debug_color = Color(0.976471, 0, 0.4, 0.419608)
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(11, 4)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+anchors_preset = -1
+anchor_left = -0.033
+anchor_top = -0.1
+anchor_right = -0.033
+anchor_bottom = -0.1
+offset_left = -14.0
+offset_top = -17.0
+offset_right = 15.0
+offset_bottom = -14.0
+max_value = 50.0
+value = 50.0
+texture_progress = SubResource("AtlasTexture_nm3md")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = ExtResource("4_dcjmm")
+texture_scale = 2.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

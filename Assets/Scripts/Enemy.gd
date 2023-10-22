@@ -1,10 +1,11 @@
 extends CharacterBody2D
 @onready var spr = $AnimatedSprite2D
+@onready var lifeBar = $TextureProgressBar
 const speed = 50
 var isAttacking = false
 var timer
 var choosenMove
-var life = 50
+var life = 150
 var bullet_shoot_speed = -1
 var isShooting = false
 var bullet_spawner = 0.3
@@ -13,12 +14,14 @@ var path
 const bulletPath = preload("res://Assets/Prefabs/enemy_bullets.tscn")
 var player
 func _ready():
+	lifeBar.max_value = life
 	timer = 5
 	choosenMove = randi_range(0,4)
 	player  = get_tree().get_root().get_node("Node2D").get_node("Martin")
 
 func _physics_process(delta):
 	if life > 0:
+		lifeBar.value = life
 		if !isAttacking:
 			if timer <= 0:
 				timer = randi_range(5,10)
@@ -37,13 +40,13 @@ func _physics_process(delta):
 			else:
 				bullet_spawner -= 0.01
 	else:
+		lifeBar.value = 0
 		velocity.x = 0
 		velocity.y = 0
 		explode()
 		
 func initializeCoin():
 	var id = randi_range(0,2)
-	print(id)
 	if id == 0:
 		path = preload("res://Assets/Prefabs/coin.tscn")
 	if id == 1:
@@ -118,7 +121,7 @@ func _on_area_2d_body_entered(body):
 
 
 func _on_detect_bullets_body_entered(body):
-	if(body.name == "Bullets"):
+	if(body.is_in_group("bullets")):
 		life -= 15
 		spr.play("Hit")
 		velocity.x = 0

@@ -14,7 +14,7 @@ region = Rect2(0, 1, 9, 4)
 [sub_resource type="CircleShape2D" id="CircleShape2D_yuv8b"]
 radius = 7.5
 
-[node name="Bullets" type="StaticBody2D"]
+[node name="Bullets" type="StaticBody2D" groups=["bullets"]]
 position = Vector2(9, -12)
 scale = Vector2(0.4, 0.4)
 script = ExtResource("1_g8neu")

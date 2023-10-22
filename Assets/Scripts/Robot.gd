@@ -1,5 +1,7 @@
 extends CharacterBody2D
 @onready var spr = $AnimatedSprite2D
+@onready var lifeBar = $TextureProgressBar
+@onready var light = $PointLight2D
 const speed = 100
 var isAttacking = false
 var timer
@@ -8,11 +10,18 @@ var life = 50
 
 const coinPath = preload("res://Assets/Prefabs/coin.tscn")
 func _ready():
+	lifeBar.max_value = life
 	timer = 5
 	choosenMove = randi_range(0,4)
 
 func _physics_process(delta):
 	if life > 0:
+		if spr.flip_h:
+			light.position.x = -3
+		else:
+			light.position.x = 3
+			
+		lifeBar.value = life
 		if !isAttacking:
 			if timer <= 0:
 				timer = randi_range(3,5)
@@ -25,9 +34,13 @@ func _physics_process(delta):
 			timer = randi_range(3,5)
 			choosenMove = randi_range(0,4)
 	else:
+		lifeBar.value = 0
 		velocity.x = 0
 		velocity.y = 0
 		explode()
+		
+	
+		
 		
 func initializeCoin():
 	var coin = coinPath.instantiate()
@@ -75,16 +88,24 @@ func handleBasicMovement(move):
 	
 
 func _on_detect_bullets_body_entered(body):
-	if(body.name == "Bullets"):
+	if(body.is_in_group("bullets")):
 		life -= 15
 		spr.play("Hit")
 		velocity.x = 0
 		velocity.y = 0
 		timer = 0
-	if(body.name == "Martin"):
-		life = 0
+	
 			
 func explode():
 	spr.play("Exploding")
 	if spr.get_frame() == 7:
 		initializeCoin()	
+
+
+func _on_detect_player_body_entered(body):
+	if(body.is_in_group("player")):
+		if body.health - 25 <= 0:
+			body.health = 0
+		else:
+			body.health -= 25
+		life = 0

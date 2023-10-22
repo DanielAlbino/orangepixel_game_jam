@@ -11,11 +11,10 @@ height = 8.0
 atlas = ExtResource("2_qg8bd")
 region = Rect2(16, 17, 4, 9)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yj0nr"]
-radius = 3.0
-height = 10.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u4yjs"]
+size = Vector2(3.99998, 10)
 
-[node name="enemy_bullets" type="StaticBody2D"]
+[node name="enemy_bullets" type="StaticBody2D" groups=["enemy_bullets"]]
 script = ExtResource("1_5anbq")
 metadata/_edit_group_ = true
 
@@ -30,8 +29,9 @@ texture = SubResource("AtlasTexture_3isd7")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-3.51271e-06, -9.05991e-06)
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_yj0nr")
+shape = SubResource("RectangleShape2D_u4yjs")
 debug_color = Color(0.984314, 0, 0.356863, 0.419608)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

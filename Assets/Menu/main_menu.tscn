@@ -1,0 +1,157 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6n4yyys5lair"]
+
+[ext_resource type="Texture2D" uid="uid://c5wdexa7l8fhi" path="res://Assets/Logo/Swat_rescue_time.png" id="1_5xx1r"]
+[ext_resource type="Script" path="res://Assets/Scripts/Menu.gd" id="1_ud8vs"]
+[ext_resource type="VideoStream" path="res://Assets/Video/game_play.ogv" id="2_8tewl"]
+[ext_resource type="Texture2D" uid="uid://cujw6kpik86bj" path="res://Assets/Sprites/Miscellaneous/bullets.png" id="3_cg7nc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dgb3e"]
+atlas = ExtResource("3_cg7nc")
+region = Rect2(21, 0, 6, 8)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ud8vs")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -1.5
+offset_right = 43.5
+offset_bottom = 99.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="Start" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Exit")
+focus_neighbor_bottom = NodePath("../Options")
+text = "Start"
+
+[node name="Options" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Start")
+focus_neighbor_bottom = NodePath("../Exit")
+text = "Options"
+
+[node name="Exit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Options")
+focus_neighbor_bottom = NodePath("../Start")
+text = "Exit Game"
+
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer"]
+position = Vector2(45.5, -177.5)
+texture = ExtResource("1_5xx1r")
+
+[node name="arrow" type="Sprite2D" parent="VBoxContainer"]
+position = Vector2(-19.5, 15.5)
+rotation = 1.5708
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_dgb3e")
+
+[node name="Options" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = 1.0
+offset_right = 13.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="Button" parent="Options"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -22.5
+offset_top = -31.0
+offset_right = 22.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Options"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -43.0
+offset_right = 275.0
+offset_bottom = 43.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Labels" type="VBoxContainer" parent="Options/HBoxContainer"]
+layout_mode = 2
+
+[node name="Master" type="Label" parent="Options/HBoxContainer/Labels"]
+layout_mode = 2
+text = "Master"
+
+[node name="Music" type="Label" parent="Options/HBoxContainer/Labels"]
+layout_mode = 2
+text = "Music"
+
+[node name="Sound SFX" type="Label" parent="Options/HBoxContainer/Labels"]
+layout_mode = 2
+text = "Sound SFX"
+
+[node name="Sliders" type="VBoxContainer" parent="Options/HBoxContainer"]
+layout_mode = 2
+
+[node name="Music_Slider" type="HSlider" parent="Options/HBoxContainer/Sliders"]
+layout_mode = 2
+
+[node name="SFX_Slider" type="HSlider" parent="Options/HBoxContainer/Sliders"]
+layout_mode = 2
+
+[node name="Master_Slider" type="HSlider" parent="Options"]
+layout_mode = 2
+offset_left = 615.0
+offset_top = 281.0
+offset_right = 767.0
+offset_bottom = 297.0
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -17.0
+offset_top = 9.0
+offset_right = -17.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("2_8tewl")
+autoplay = true
+expand = true
+
+[connection signal="focus_entered" from="VBoxContainer/Start" to="." method="_on_start_focus_entered"]
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="focus_entered" from="VBoxContainer/Options" to="." method="_on_options_focus_entered"]
+[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="focus_entered" from="VBoxContainer/Exit" to="." method="_on_exit_focus_entered"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]

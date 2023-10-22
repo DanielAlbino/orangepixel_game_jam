@@ -1,13 +1,36 @@
 extends Control
 
+@onready var btn_start = $VBoxContainer/Start
+@onready var btn_options = $VBoxContainer/Options
+@onready var btn_exit = $VBoxContainer/Exit
+@onready var arrow = $VBoxContainer/arrow
 
-func _on_start_btn_pressed():
+func _ready():
+	btn_start.grab_focus()
+	arrow.position.y = btn_start.position.y + 15
+
+func _on_start_pressed():
 	get_tree().change_scene_to_file("res://Assets/Scenes/World.tscn")
 
 
-func _on_options_btn_pressed():
+func _on_exit_pressed():
+	get_tree().quit()
+
+
+func _on_options_pressed():
 	pass # Replace with function body.
 
 
-func _on_quit_btn_pressed():
-	get_tree().quit()
+func _on_start_focus_entered():
+	arrow.position.y = btn_start.position.y + 15
+	pass # Replace with function body.
+
+
+func _on_options_focus_entered():
+	arrow.position.y = btn_options.position.y + 15
+	pass # Replace with function body.
+
+
+func _on_exit_focus_entered():
+	arrow.position.y = btn_exit.position.y + 15
+	pass # Replace with function body.

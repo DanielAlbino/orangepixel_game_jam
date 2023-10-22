@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://cn10qy1fe03em"]
+[gd_scene load_steps=9 format=3 uid="uid://cn10qy1fe03em"]
 
 [ext_resource type="PackedScene" uid="uid://cpnqfdnsjscbq" path="res://Assets/Prefabs/martin.tscn" id="1_hrty0"]
 [ext_resource type="Texture2D" uid="uid://cijumgyxtl7nm" path="res://Assets/Sprites/Tilesets/tileset_16x16.png" id="2_2na6m"]
 [ext_resource type="PackedScene" uid="uid://cwftlp5qcagjh" path="res://Assets/Prefabs/robot.tscn" id="4_g7bi3"]
 [ext_resource type="PackedScene" uid="uid://s746272hcjjg" path="res://Assets/Prefabs/drums.tscn" id="4_n5oom"]
 [ext_resource type="PackedScene" uid="uid://dgjr6rru1lx4g" path="res://Assets/Prefabs/jonhy.tscn" id="5_3cxyl"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_j7whd"]
+blend_mode = 1
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mskqn"]
 texture = ExtResource("2_2na6m")
@@ -236,7 +239,11 @@ sources/0 = SubResource("TileSetAtlasSource_mskqn")
 
 [node name="Node2D" type="Node2D"]
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.364706, 0.364706, 0.364706, 1)
+
 [node name="Martin" parent="." instance=ExtResource("1_hrty0")]
+material = SubResource("CanvasItemMaterial_j7whd")
 position = Vector2(-6, -18)
 
 [node name="Level" type="TileMap" parent="." groups=["Map"]]

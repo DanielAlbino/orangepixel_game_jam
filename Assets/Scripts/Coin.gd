@@ -10,7 +10,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	spr.play("Rotate")
-	var collision = move_and_collide(velocity * delta)
+	move_and_collide(velocity * delta)
 
 #Verify if the player has enter the area
 func _on_area_2d_body_entered(body):

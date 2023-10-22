@@ -1,8 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://cwftlp5qcagjh"]
+[gd_scene load_steps=24 format=3 uid="uid://cwftlp5qcagjh"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Robot.gd" id="1_atiya"]
 [ext_resource type="Texture2D" uid="uid://bd67pg1fq27qq" path="res://Assets/Sprites/Characters/robot_creature_10x10.png" id="2_50j74"]
 [ext_resource type="Texture2D" uid="uid://b7thy6123hm14" path="res://Assets/Sprites/SpecialFX/explosion_16x16.png" id="3_baeh8"]
+[ext_resource type="Texture2D" uid="uid://bj7q8b7xmmyxs" path="res://Assets/Sprites/Miscellaneous/hud_elements.png" id="4_6okcg"]
+[ext_resource type="Texture2D" uid="uid://dbqxtty12jet1" path="res://Assets/Sprites/Miscellaneous/light.png" id="5_spphe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dt6iv"]
 radius = 4.0
@@ -127,15 +129,18 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wpfg1"]
-radius = 50.0
+radius = 9.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k582m"]
 radius = 7.0
 
-[node name="Robot" type="CharacterBody2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ln67x"]
+atlas = ExtResource("4_6okcg")
+region = Rect2(47, 17, 29, 3)
+
+[node name="Robot" type="CharacterBody2D" groups=["robot"]]
 position = Vector2(145, -29)
 script = ExtResource("1_atiya")
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_dt6iv")
@@ -145,19 +150,39 @@ sprite_frames = SubResource("SpriteFrames_c1akc")
 animation = &"Idle"
 
 [node name="Detect_Player" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detect_Player"]
 shape = SubResource("CircleShape2D_wpfg1")
-debug_color = Color(0, 0.0784314, 0.701961, 0.419608)
+debug_color = Color(0.227451, 0.447059, 0.992157, 0.419608)
 
 [node name="Detect_bullets" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detect_bullets"]
 shape = SubResource("CircleShape2D_k582m")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 
-[connection signal="body_entered" from="Detect_Player" to="." method="_on_area_2d_body_entered"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+anchors_preset = -1
+anchor_left = -0.033
+anchor_top = -0.1
+anchor_right = -0.033
+anchor_bottom = -0.1
+offset_left = -14.0
+offset_top = -11.0
+offset_right = 15.0
+offset_bottom = -8.0
+max_value = 50.0
+value = 50.0
+texture_progress = SubResource("AtlasTexture_ln67x")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(3, 0)
+color = Color(1, 0.137255, 0, 1)
+texture = ExtResource("5_spphe")
+texture_scale = 0.1
+
+[connection signal="body_entered" from="Detect_Player" to="." method="_on_detect_player_body_entered"]
 [connection signal="body_entered" from="Detect_bullets" to="." method="_on_detect_bullets_body_entered"]
