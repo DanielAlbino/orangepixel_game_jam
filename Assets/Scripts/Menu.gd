@@ -12,8 +12,8 @@ func _ready():
 	arrow.position.y = btn_start.position.y + 35
 
 func _on_start_pressed():
-	sound.stop()
-	get_tree().change_scene_to_file("res://Assets/Scenes/World.tscn")
+		sound.stop()
+		get_tree().change_scene_to_file("res://Assets/Scenes/World.tscn")
 
 
 func _on_exit_pressed():

@@ -2,6 +2,9 @@ extends CharacterBody2D
 @onready var spr = $AnimatedSprite2D
 @onready var lifeBar = $TextureProgressBar
 @onready var sound = $AudioStreamPlayer2D
+@onready var light = $PointLight2D
+
+var lightTimer = 0.03
 const speed = 50
 var isAttacking = false
 var timer
@@ -14,13 +17,19 @@ var bullet_spawner = 0.3
 var path
 const bulletPath = preload("res://Assets/Prefabs/enemy_bullets.tscn")
 var player
+
 func _ready():
+	light.enabled = false
 	lifeBar.max_value = life
 	timer = 5
 	choosenMove = randi_range(0,4)
 	player  = get_tree().get_root().get_node("Node2D").get_node("Martin")
 
 func _physics_process(delta):
+	if lightTimer <= 0:
+		light.color = Color(255, 255, 255, 0.003)
+	else:
+		lightTimer -= 0.01
 	if life > 0:
 		lifeBar.value = life
 		if !isAttacking:
@@ -107,9 +116,13 @@ func handleBasicMovement(move):
 func checkPlayerPosition():
 	if self.global_position.x > player.global_position.x :
 		spr.flip_h = true
+		light.global_position.x = $Marker2D.global_position.x - 20
+		light.rotation = 89.5
 		bullet_shoot_speed = -1
 	else:
 		spr.flip_h = false
+		light.rotation = -89.5
+		light.global_position.x = $Marker2D.global_position.x - 5
 		bullet_shoot_speed = 1
 	
 
@@ -117,6 +130,7 @@ func _on_area_2d_body_entered(body):
 	if body:
 		timer = 0
 	if body.name == "Martin":
+		light.enabled = true
 		isShooting = true
 	#move_and_collide(dir * speed)
 
@@ -124,7 +138,8 @@ func _on_area_2d_body_entered(body):
 func _on_detect_bullets_body_entered(body):
 	if(body.is_in_group("bullets")):
 		life -= 15
-		spr.play("Hit")
+		light.color = Color(255, 0, 0, 0.003)
+		lightTimer = 0.03
 		velocity.x = 0
 		velocity.y = 0
 		if life <= 0:
@@ -155,4 +170,5 @@ func explode():
 
 func _on_area_2d_body_exited(body):
 	if body.name == "Martin":
+		light.enabled = false
 		isShooting = false

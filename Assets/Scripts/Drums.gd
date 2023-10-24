@@ -43,3 +43,5 @@ func _on_detect_bullets_body_entered(body):
 			body.health = 0
 		else:
 			body.health -= 10
+			body.light.color =  Color(255, 0, 0, 0.003)
+			body.lightTimer = 0.03

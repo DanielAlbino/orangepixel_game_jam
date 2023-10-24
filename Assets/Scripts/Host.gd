@@ -2,8 +2,15 @@ extends CharacterBody2D
 
 var life = 3
 var isFollowingPlayer = false
+@onready var light = $PointLight2D
 
 func _physics_process(_delta):
+	if isFollowingPlayer:
+		followPlayer()
+	pass
+
+func followPlayer():
+	print("Will follow player")
 	pass
 
 func _on_area_2d_body_entered(body):

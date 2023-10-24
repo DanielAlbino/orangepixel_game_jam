@@ -84,7 +84,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_37yex"]
-size = Vector2(33, 20)
+size = Vector2(34.9999, 23.0001)
 
 [node name="Drums" type="StaticBody2D"]
 position = Vector2(552, 80)
@@ -107,7 +107,7 @@ frame_progress = 0.08799
 [node name="detect_bullets" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detect_bullets"]
-position = Vector2(0.5, 0)
+position = Vector2(1.49998, 0.5)
 shape = SubResource("RectangleShape2D_37yex")
 debug_color = Color(0.992157, 0, 0.243137, 0.419608)
 

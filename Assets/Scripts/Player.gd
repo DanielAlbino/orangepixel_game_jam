@@ -10,7 +10,9 @@ var speed = 100
 @onready var coinCounter = $Camera2D/StaticBody2D/coinCounter
 @onready var hostCounter = $Camera2D/hostCounter
 @onready var sound = $AudioStreamPlayer2D
+@onready var light = $PointLight2D
 
+var lightTimer = 0.03
 var bullet_shoot_speed = 0
 var health = 100
 var bullets = 100
@@ -28,7 +30,10 @@ func _ready():
 	HpCounter.text = str(health)
 
 func _physics_process(_delta):
-		
+	if lightTimer <= 0:
+		light.color = Color(255, 255, 255, 0.003)
+	else:
+		lightTimer -= 0.01
 	if health > 0:
 		handleInputs()
 		move_and_slide()
@@ -136,5 +141,7 @@ func extraHealth():
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("enemy_bullets"):
 		health -= 5
+		light.color = Color(255, 0, 0, 0.003)
+		lightTimer = 0.03
 		if health <= 0:
 			lifeBar.value = 0
