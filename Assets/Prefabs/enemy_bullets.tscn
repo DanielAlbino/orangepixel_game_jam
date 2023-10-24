@@ -15,6 +15,8 @@ region = Rect2(16, 17, 4, 9)
 size = Vector2(3.99998, 10)
 
 [node name="enemy_bullets" type="StaticBody2D" groups=["enemy_bullets"]]
+collision_layer = 7
+collision_mask = 7
 script = ExtResource("1_5anbq")
 metadata/_edit_group_ = true
 
@@ -27,6 +29,8 @@ rotation = 1.5708
 texture = SubResource("AtlasTexture_3isd7")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-3.51271e-06, -9.05991e-06)

@@ -10,8 +10,20 @@ func _ready():
 	sound.play()
 	btn_start.grab_focus()
 	arrow.position.y = btn_start.position.y + 35
+	
+func _input(event):
+	if event.is_action_pressed("shoot"):
+		var focus_btn = get_viewport().gui_get_focus_owner()
+		if focus_btn.name == "Start":
+			get_tree().change_scene_to_file("res://Assets/Scenes/World.tscn")
+		if focus_btn.name == "Exit":
+			get_tree().quit()
+		print(focus_btn.name)
 
 func _on_start_pressed():
+	if Input.is_action_pressed("shoot"):
+		print("pressed button")
+
 		sound.stop()
 		get_tree().change_scene_to_file("res://Assets/Scenes/World.tscn")
 

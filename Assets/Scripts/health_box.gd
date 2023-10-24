@@ -1,6 +1,5 @@
 extends StaticBody2D
 
-@onready var spr = $AnimatedSprite2D
 var velocity = Vector2(0,0)
 var health = 20
 
