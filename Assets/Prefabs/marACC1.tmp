@@ -259,13 +259,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "PAUSE"
 
-[node name="Pointer" type="Node2D" parent="."]
-
-[node name="Marker" type="Marker2D" parent="Pointer"]
-position = Vector2(13, 6)
-
 [node name="Marker2D" type="Marker2D" parent="." groups=["bullet_point"]]
-visible = false
 position = Vector2(13, 6)
 
 [node name="Area2D" type="Area2D" parent="."]

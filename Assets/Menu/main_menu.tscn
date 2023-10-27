@@ -70,6 +70,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_huaik")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_huaik")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_huaik")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_huaik")
+action_mode = 0
 text = "Start"
 
 [node name="Options" type="Button" parent="VBoxContainer"]
@@ -84,6 +85,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_t8epl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_t8epl")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_t8epl")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_t8epl")
+action_mode = 0
 text = "Settings"
 
 [node name="Exit" type="Button" parent="VBoxContainer"]
@@ -98,6 +100,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_fh2hm")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_fh2hm")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_fh2hm")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_fh2hm")
+action_mode = 0
 text = "Exit Game"
 
 [node name="Logo" type="Sprite2D" parent="VBoxContainer"]
@@ -210,10 +213,13 @@ value = -10.0
 
 [connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
 [connection signal="focus_entered" from="VBoxContainer/Start" to="." method="_on_start_focus_entered"]
+[connection signal="mouse_entered" from="VBoxContainer/Start" to="." method="_on_start_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="focus_entered" from="VBoxContainer/Options" to="." method="_on_options_focus_entered"]
+[connection signal="mouse_entered" from="VBoxContainer/Options" to="." method="_on_options_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="focus_entered" from="VBoxContainer/Exit" to="." method="_on_exit_focus_entered"]
+[connection signal="mouse_entered" from="VBoxContainer/Exit" to="." method="_on_exit_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="Options/Back" to="." method="_on_back_pressed"]
 [connection signal="value_changed" from="Options/SFX_Slider" to="." method="_on_sfx_slider_value_changed"]

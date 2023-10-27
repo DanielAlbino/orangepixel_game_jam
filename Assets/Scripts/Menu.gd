@@ -40,6 +40,7 @@ func _input(event):
 			get_tree().quit()
 
 func _on_start_pressed():
+	if Input.is_action_pressed("shoot"):
 		sound.stop()
 		save(data)
 		get_tree().change_scene_to_file("res://Assets/Scenes/loading_screen.tscn")
@@ -49,10 +50,6 @@ func _on_exit_pressed():
 	getSaveData()
 	get_tree().quit()
 
-
-func _on_options_pressed():
-	opt.visible = 	!opt.visible
-	btn_start.grab_focus()
 
 
 func _on_start_focus_entered():
@@ -118,3 +115,22 @@ func setVolume(masterVolume, musicVolume, sfxVolume):
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), sfxVolume)
 		
 		
+
+
+func _on_start_mouse_entered():
+	btn_start.grab_focus()
+
+
+
+func _on_options_mouse_entered():
+	btn_options.grab_focus()
+
+
+
+func _on_exit_mouse_entered():
+	btn_exit.grab_focus()
+
+
+func _on_options_pressed():
+	print("clicked")
+	opt.visible = !opt.visible

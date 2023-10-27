@@ -275,7 +275,6 @@ size = Vector2(20, 36)
 script = ExtResource("1_vcwxe")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.364706, 0.364706, 0.364706, 1)
 
 [node name="Martin" parent="." instance=ExtResource("2_g2mad")]

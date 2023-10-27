@@ -23,11 +23,15 @@ var hosts = 0
 var deathHost = 0
 var hasDroppedBullets = false
 var hasDroppedHealth = false
+var mousepos 
 # Constant params
 const bulletPath = preload("res://Assets/Prefabs/bullets.tscn")
 
 func _ready():
+	mousepos = get_viewport().get_mouse_position()
 	self.position = $"../teleporter/safePoint".position
+	$Pointer.look_at(get_global_mouse_position())
+	$PointLight2D.rotation = $Pointer.rotation + (-89.5)
 	spr.play("Idle")
 	msg.visible = false
 	lifeBar.max_value = health
@@ -35,6 +39,10 @@ func _ready():
 	HpCounter.text = str(health)
 
 func _physics_process(_delta):
+	mousepos = get_global_mouse_position()
+	$Pointer.look_at(get_global_mouse_position())
+	$PointLight2D.rotation = $Pointer.rotation + (-89.5)
+	
 	if lightTimer <= 0:
 		light.color = Color(255, 255, 255, 0.003)
 	else:
@@ -47,15 +55,19 @@ func _physics_process(_delta):
 	if health > 0 && ( hosts != 3 || deathHost != 3  || deathHost + hosts != 3) :
 		handleInputs()
 		move_and_slide()
-		countCoins()			
-		
+		countCoins()	
 		if bullets == 0:
 			msg.text = "I need ammo"
 			msg.visible = true
 		if health <= 5 && health > 0:
 			msg.text = "I am dying"
 			msg.visible = true
-
+			
+		if $Pointer/Marker.global_position <self.global_position:
+			spr.flip_h = true
+		else:
+			spr.flip_h = false
+			
 		if Input.is_action_pressed("buy_bullets"):
 			extraBullets()
 			
@@ -66,7 +78,6 @@ func _physics_process(_delta):
 			health = 0
 			spr.play("Death")
 			_delta=0
-		gameover.get_node("Label").text = "GAME OVER"
 		gameover.visible = !gameover.visible
 	
 
@@ -79,13 +90,11 @@ func handleInputs():
 		bullet_shoot_speed = -1
 		spr.play("Run")
 		spr.flip_h = true
-		light.rotation = 89.5
 	if(Input.is_action_pressed("right")):
 		velocity.x = speed
 		bullet_shoot_speed = 1
 		spr.play("Run")
 		spr.flip_h = false
-		light.rotation = -89.5
 	if(Input.is_action_pressed("up")):
 		velocity.y = -speed
 		spr.play("Run")
@@ -114,10 +123,11 @@ func shoot(bullet_shoot_pos):
 	get_parent().add_child(bullet)
 	sound.play()
 	var _position = $Marker2D.global_position
-	if bullet_shoot_pos < 0:
+	if spr.flip_h:
 		_position.x -= 28
 	bullet.position = _position
-	bullet.velocity = Vector2(bullet_shoot_pos,0)
+	bullet.rotation = $Pointer.rotation
+	bullet.velocity = (get_global_mouse_position() - bullet.position).normalized()
 	
 func extraBullets():
 	if coinCount == 0 || coinCount < 5:
