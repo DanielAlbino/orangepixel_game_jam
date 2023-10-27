@@ -75,8 +75,8 @@ atlas = ExtResource("3_e7h1g")
 region = Rect2(47, 17, 29, 3)
 
 [node name="Jonhy" type="CharacterBody2D"]
-collision_layer = 7
-collision_mask = 7
+collision_layer = 15
+collision_mask = 15
 script = ExtResource("1_qkqkp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -91,6 +91,7 @@ frame_progress = 0.241163
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(0.8, 0.8)
 shape = SubResource("CapsuleShape2D_8syf4")
 
 [node name="detect_bullets" type="Area2D" parent="."]
@@ -127,6 +128,7 @@ texture_scale = 2.0
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_ursiv")
 volume_db = -10.0
+bus = &"SFX"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

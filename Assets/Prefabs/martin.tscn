@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cpnqfdnsjscbq"]
+[gd_scene load_steps=33 format=3 uid="uid://cpnqfdnsjscbq"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Player.gd" id="1_777jk"]
 [ext_resource type="Texture2D" uid="uid://rloeebyhn0pw" path="res://Assets/Sprites/Characters/character1_23x29.png" id="1_q1xci"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cqbda1lvmuq2l" path="res://Assets/Sprites/Miscellaneous/tinycoins_8x8.png" id="4_27lpx"]
 [ext_resource type="Texture2D" uid="uid://clcc2h4rrbbh5" path="res://Assets/Sprites/Characters/character4_21x28.png" id="5_dtol7"]
 [ext_resource type="Texture2D" uid="uid://e34a8yykcidy" path="res://Assets/Sprites/Miscellaneous/flash_light.png" id="6_s3xj8"]
+[ext_resource type="Script" path="res://Assets/Scripts/Pause_Panel.gd" id="6_u1gpf"]
 [ext_resource type="AudioStream" uid="uid://dk3mnxjw665ci" path="res://Assets/Sounds/gun_shot.mp3" id="7_omqxc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fv0kk"]
@@ -114,6 +115,12 @@ region = Rect2(21, 0, 21, 29)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_s63q8"]
 blend_mode = 1
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_b1qx2"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2r08j"]
 light_mode = 1
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tbvgu"]
@@ -226,6 +233,32 @@ theme_override_font_sizes/font_size = 8
 text = "0 / 3
 "
 
+[node name="Pause_Panel" type="Panel" parent="Camera2D"]
+process_mode = 3
+visible = false
+z_index = 4
+material = SubResource("CanvasItemMaterial_b1qx2")
+offset_left = -193.0
+offset_top = -107.0
+offset_right = 192.0
+offset_bottom = 107.0
+script = ExtResource("6_u1gpf")
+
+[node name="Label" type="Label" parent="Camera2D/Pause_Panel"]
+z_index = 5
+material = SubResource("CanvasItemMaterial_2r08j")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = 93.0
+offset_right = -184.0
+offset_bottom = -95.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PAUSE"
+
 [node name="Marker2D" type="Marker2D" parent="." groups=["bullet_point"]]
 position = Vector2(13, 6)
 
@@ -246,6 +279,7 @@ texture_scale = 3.0
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_omqxc")
 volume_db = -10.0
+bus = &"SFX"
 
 [node name="messages" type="Label" parent="."]
 offset_left = -17.0

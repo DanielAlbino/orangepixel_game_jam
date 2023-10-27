@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://cddtkff2v3hi5"]
+
+[ext_resource type="Texture2D" uid="uid://d23evrwj37ye3" path="res://Assets/Screens/controls.png" id="1_ju80k"]
+[ext_resource type="Script" path="res://Assets/Scripts/loading_screen.gd" id="1_t25mh"]
+[ext_resource type="Texture2D" uid="uid://bj7q8b7xmmyxs" path="res://Assets/Sprites/Miscellaneous/hud_elements.png" id="2_74icn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ekm8m"]
+atlas = ExtResource("2_74icn")
+region = Rect2(45, 0, 33, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trqpk"]
+atlas = ExtResource("2_74icn")
+region = Rect2(12, 0, 33, 13)
+
+[node name="Loading Screen" type="Node2D"]
+script = ExtResource("1_t25mh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(574, 319)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("1_ju80k")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1100.0
+offset_top = 62.0
+offset_right = 1140.0
+offset_bottom = 102.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Control"]
+layout_mode = 0
+offset_left = -59.0
+offset_top = -53.0
+offset_right = -26.0
+offset_bottom = -39.0
+scale = Vector2(3, 3)
+value = 50.0
+texture_under = SubResource("AtlasTexture_ekm8m")
+texture_progress = SubResource("AtlasTexture_trqpk")

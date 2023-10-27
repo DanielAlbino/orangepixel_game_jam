@@ -12,6 +12,7 @@ var speed = 100
 @onready var sound = $AudioStreamPlayer2D
 @onready var light = $PointLight2D
 @onready var msg = $messages
+@onready var gameover = $Camera2D/GameOver
 
 var lightTimer = 0.03
 var bullet_shoot_speed = 0
@@ -19,12 +20,14 @@ var health = 100
 var bullets = 100
 var coinCount = 0
 var hosts = 0
+var deathHost = 0
 var hasDroppedBullets = false
 var hasDroppedHealth = false
 # Constant params
 const bulletPath = preload("res://Assets/Prefabs/bullets.tscn")
 
 func _ready():
+	self.position = $"../teleporter/safePoint".position
 	spr.play("Idle")
 	msg.visible = false
 	lifeBar.max_value = health
@@ -37,35 +40,35 @@ func _physics_process(_delta):
 	else:
 		lightTimer -= 0.01
 	hostCounter.text = str(hosts) + '/3'	
-	
-	if health > 0:
-		handleInputs()
-		move_and_slide()
-		countCoins()
-	else:
-		spr.play("Death")
-		
-	if health >= 10:
-		hasDroppedHealth = false
-	if bullets >= 10:
-		hasDroppedBullets = false
-		
 	lifeBar.value = health
 	HpCounter.text = str(health)
 	bulletsBar.value = bullets
 	BulletCounter.text = str(bullets)
-	if bullets == 0:
-		msg.text = "I need ammo"
-		msg.visible = true
-	if health <= 5:
-		msg.text = "I am dying"
-		msg.visible = true
-
-	if Input.is_action_pressed("buy_bullets") && coinCount > 0 && bullets == 0:
-		extraBullets()
+	if health > 0 && ( hosts != 3 || deathHost != 3  || deathHost + hosts != 3) :
+		handleInputs()
+		move_and_slide()
+		countCoins()			
 		
-	if Input.is_action_pressed("buy_bullets") && coinCount > 0 && health <= 5 :
-		extraHealth()
+		if bullets == 0:
+			msg.text = "I need ammo"
+			msg.visible = true
+		if health <= 5 && health > 0:
+			msg.text = "I am dying"
+			msg.visible = true
+
+		if Input.is_action_pressed("buy_bullets"):
+			extraBullets()
+			
+		if Input.is_action_pressed("buy_health"):
+			extraHealth()
+	else:
+		if health <= 0:
+			health = 0
+			spr.play("Death")
+			_delta=0
+		gameover.get_node("Label").text = "GAME OVER"
+		gameover.visible = !gameover.visible
+	
 
 func countCoins():
 	coinCounter.text = str(coinCount)
@@ -117,29 +120,30 @@ func shoot(bullet_shoot_pos):
 	bullet.velocity = Vector2(bullet_shoot_pos,0)
 	
 func extraBullets():
-	bullets = 50
-	if coinCount >= 10:
-		coinCount -= 10
+	if coinCount == 0 || coinCount < 5:
+		return
+	if bullets + coinCount * 10 >= 100:
 		bullets = 100
 	else:
-		bullets = coinCount * 10
-		coinCount = 0
+		bullets += 50
+	coinCount -= 5
 	BulletCounter.text = str(bullets)
 	msg.visible = false
 
 		
 func extraHealth():
-	if coinCount >= 10:
-		coinCount -= 10
-		lifeBar = 100
+	if coinCount == 0 || coinCount < 5:
+		return
+	if health + coinCount * 10 >= 100:
+		health = 100
 	else:
-		lifeBar = coinCount * 10
-		coinCount = 0
-	HpCounter.text = str(lifeBar)
+		health += 50
+	coinCount -= 5
+	HpCounter.text = str(health)
 	msg.visible = false
 	
 func _on_area_2d_body_entered(body):
-	if body.is_in_group("enemy_bullets"):
+	if body.is_in_group("enemy_bullets") && health > 0:
 		health -= 5
 		light.color = Color(255, 0, 0, 0.003)
 		lightTimer = 0.03

@@ -5,12 +5,12 @@ var velocity = Vector2(0,0)
 var timer
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	timer = 3
+	timer = 2
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	timer -= 0.01
+	timer -= 0.1
 	if timer <= 0:
 		queue_free()
 	move_and_collide(velocity * speed * delta)

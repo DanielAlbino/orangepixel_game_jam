@@ -9,7 +9,6 @@ var deathTimer = 0.05
 var speed = 90
 var teleporter
 var beingTeleported = false
-
 func _ready():
 	teleporter = $"../teleporter/safePoint"
 	spr.play("Idle")
@@ -19,6 +18,7 @@ func _physics_process(delta):
 	
 	if life <= 0:
 		spr.play("Die")
+		player.deathHost += 1
 		if deathTimer <= 0:
 			queue_free()
 		else: 
@@ -30,23 +30,17 @@ func _physics_process(delta):
 			spr.flip_h = player.spr.flip_h
 			move_and_collide(dir * speed * delta)
 			
-		if isSafe && isFollowingPlayer && !beingTeleported:
+		if isSafe && !isFollowingPlayer:
 			spr.play("Run")
 			var dir = (teleporter.global_position - self.global_position).normalized()
 			spr.flip_h = player.spr.flip_h
-			isFollowingPlayer = false
 			move_and_collide(dir * speed * delta)
-			
-		if round(teleporter.global_position.x) == round(self.global_position.x) && !beingTeleported:
-			print("being teleported")
-			spr.play("Idle")
-			beingTeleported = true
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player"):
 		if !isSafe:
 			isFollowingPlayer = true
-	if body.is_in_group("bullets") || body.is_in_group("enemy_bullets"):
+	if (body.is_in_group("bullets") && !isFollowingPlayer) || body.is_in_group("enemy_bullets"):
 		if life > 0:
 			life -= 1
 			
@@ -54,5 +48,5 @@ func _on_area_2d_body_entered(body):
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("teleporter"):
-		teleporter = area
 		isFollowingPlayer = false
+		isSafe = true
