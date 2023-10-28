@@ -140,8 +140,8 @@ region = Rect2(47, 17, 29, 3)
 
 [node name="Robot" type="CharacterBody2D" groups=["robot"]]
 position = Vector2(145, -29)
-collision_layer = 15
-collision_mask = 15
+collision_layer = 14
+collision_mask = 14
 script = ExtResource("1_atiya")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

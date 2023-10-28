@@ -78,7 +78,6 @@ func _physics_process(_delta):
 			health = 0
 			spr.play("Death")
 			_delta=0
-		gameover.visible = !gameover.visible
 	
 
 func countCoins():
