@@ -7,7 +7,9 @@ var back_to_normal
 var host
 var spriteon
 var spriteoff
+var level
 @onready var sound = $teleportSound
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	spriteon = $teleporter_on

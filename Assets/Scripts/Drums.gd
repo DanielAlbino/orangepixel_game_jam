@@ -36,12 +36,22 @@ func removeObject():
 
 
 func _on_detect_bullets_body_entered(body):
-	if body.is_in_group("bullets"):
+	if body.is_in_group("bullets") || body.is_in_group("enemy_bullets"):
 		life -=15
-	if body.name == "Martin" && life <= 0:
-		if body.health - 25 <= 0:
-			body.health = 0
-		else:
-			body.health -= 10
-			body.light.color =  Color(255, 0, 0, 0.003)
-			body.lightTimer = 0.03
+	if life <= 0:
+		if body.is_in_group("player"):
+			if body.health - 15 <= 0:
+				body.health = 0
+			else:
+				body.health -= 10
+				body.light.color =  Color(255, 0, 0, 0.003)
+				body.lightTimer = 0.03
+		if body.is_in_group("enemy") || body.is_in_group("robots"):
+			if body.life - 15 <= 0:
+				body.life = 0
+			else:
+				body.life -= 15
+				if body.light:
+					body.light.color =  Color(255, 0, 0, 0.003)
+					body.lightTimer = 0.03
+			

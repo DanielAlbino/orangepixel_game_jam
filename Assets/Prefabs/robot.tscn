@@ -138,7 +138,9 @@ radius = 7.0
 atlas = ExtResource("4_6okcg")
 region = Rect2(47, 17, 29, 3)
 
-[node name="Robot" type="CharacterBody2D" groups=["robot"]]
+[node name="Robot" type="CharacterBody2D" groups=["robots"]]
+light_mask = 7
+visibility_layer = 7
 position = Vector2(145, -29)
 collision_layer = 14
 collision_mask = 14
@@ -160,6 +162,10 @@ debug_color = Color(0.227451, 0.447059, 0.992157, 0.419608)
 
 [node name="Detect_bullets" type="Area2D" parent="."]
 visible = false
+light_mask = 7
+visibility_layer = 7
+collision_layer = 6
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detect_bullets"]
 shape = SubResource("CircleShape2D_k582m")

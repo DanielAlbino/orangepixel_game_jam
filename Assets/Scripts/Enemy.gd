@@ -19,6 +19,8 @@ const bulletPath = preload("res://Assets/Prefabs/enemy_bullets.tscn")
 var player
 
 func _ready():
+	$Pointer.look_at(get_global_mouse_position())
+	light.rotation = $Pointer.rotation - 89.5
 	light.enabled = false
 	lifeBar.max_value = life
 	timer = 5
@@ -26,6 +28,8 @@ func _ready():
 	player  = get_tree().get_root().get_node("Node2D").get_node("Martin")
 
 func _physics_process(delta):
+	$Pointer.look_at(player.global_position)
+	$PointLight2D.rotation = $Pointer.rotation - 89.5
 	if lightTimer <= 0:
 		light.color = Color(255, 255, 255, 0.003)
 	else:
@@ -117,11 +121,9 @@ func checkPlayerPosition():
 	if self.global_position.x > player.global_position.x :
 		spr.flip_h = true
 		light.global_position.x = $Marker2D.global_position.x - 20
-		light.rotation = 89.5
 		bullet_shoot_speed = -1
 	else:
 		spr.flip_h = false
-		light.rotation = -89.5
 		light.global_position.x = $Marker2D.global_position.x - 5
 		bullet_shoot_speed = 1
 	

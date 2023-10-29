@@ -1,52 +1,43 @@
-[gd_scene load_steps=12 format=3 uid="uid://c6n4yyys5lair"]
+[gd_scene load_steps=12 format=3 uid="uid://gkm3m5jc80rb"]
 
-[ext_resource type="Texture2D" uid="uid://c5wdexa7l8fhi" path="res://Assets/Logo/Swat_rescue_time.png" id="1_5xx1r"]
-[ext_resource type="Script" path="res://Assets/Scripts/Menu.gd" id="1_ud8vs"]
-[ext_resource type="VideoStream" path="res://Assets/Video/game_play.ogv" id="2_8tewl"]
-[ext_resource type="Texture2D" uid="uid://cujw6kpik86bj" path="res://Assets/Sprites/Miscellaneous/bullets.png" id="3_cg7nc"]
-[ext_resource type="Texture2D" uid="uid://f2oj6suomik0" path="res://Assets/Sprites/Backgrounds/backdrop02.png" id="4_5lvrx"]
-[ext_resource type="AudioStream" uid="uid://b31wwxrm5b7ql" path="res://Assets/Sounds/ambient_sound.mp3" id="5_aon7n"]
-[ext_resource type="AudioStream" uid="uid://dk3mnxjw665ci" path="res://Assets/Sounds/gun_shot.mp3" id="7_cxd84"]
+[ext_resource type="VideoStream" path="res://Assets/Video/game_play.ogv" id="1_g4iwl"]
+[ext_resource type="Script" path="res://Assets/Scripts/Main Menu.gd" id="1_wdlj5"]
+[ext_resource type="AudioStream" uid="uid://b31wwxrm5b7ql" path="res://Assets/Sounds/ambient_sound.mp3" id="3_b2g6w"]
+[ext_resource type="Texture2D" uid="uid://c5wdexa7l8fhi" path="res://Assets/Logo/Swat_rescue_time.png" id="4_4c7cm"]
+[ext_resource type="Texture2D" uid="uid://cujw6kpik86bj" path="res://Assets/Sprites/Miscellaneous/bullets.png" id="5_xcn3p"]
+[ext_resource type="Texture2D" uid="uid://f2oj6suomik0" path="res://Assets/Sprites/Backgrounds/backdrop02.png" id="6_8a4ya"]
+[ext_resource type="AudioStream" uid="uid://dk3mnxjw665ci" path="res://Assets/Sounds/gun_shot.mp3" id="7_tvq01"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_huaik"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pwth0"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t8epl"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w5lcw"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fh2hm"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4h0k"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dgb3e"]
-atlas = ExtResource("3_cg7nc")
+[sub_resource type="AtlasTexture" id="AtlasTexture_dii25"]
+atlas = ExtResource("5_xcn3p")
 region = Rect2(21, 0, 6, 8)
 
-[node name="MainMenu" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_ud8vs")
+[node name="Main Menu" type="Node"]
+script = ExtResource("1_wdlj5")
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
-z_index = -1
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 30.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
-stream = ExtResource("2_8tewl")
-autoplay = true
+size_flags_vertical = 4
+stream = ExtResource("1_g4iwl")
 expand = true
 
 [node name="Menu_Music" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("5_aon7n")
+stream = ExtResource("3_b2g6w")
 volume_db = -10.0
 bus = &"Music"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -66,11 +57,11 @@ size_flags_vertical = 4
 focus_neighbor_top = NodePath("../Exit")
 focus_neighbor_bottom = NodePath("../Options")
 theme_override_font_sizes/font_size = 38
-theme_override_styles/normal = SubResource("StyleBoxEmpty_huaik")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_huaik")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_huaik")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_huaik")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_huaik")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pwth0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pwth0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pwth0")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pwth0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pwth0")
 action_mode = 0
 text = "Start"
 
@@ -81,11 +72,11 @@ size_flags_vertical = 4
 focus_neighbor_top = NodePath("../Start")
 focus_neighbor_bottom = NodePath("../Exit")
 theme_override_font_sizes/font_size = 38
-theme_override_styles/normal = SubResource("StyleBoxEmpty_t8epl")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_t8epl")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_t8epl")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_t8epl")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_t8epl")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_w5lcw")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_w5lcw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_w5lcw")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_w5lcw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_w5lcw")
 action_mode = 0
 text = "Settings"
 
@@ -96,27 +87,27 @@ size_flags_vertical = 4
 focus_neighbor_top = NodePath("../Options")
 focus_neighbor_bottom = NodePath("../Start")
 theme_override_font_sizes/font_size = 38
-theme_override_styles/normal = SubResource("StyleBoxEmpty_fh2hm")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_fh2hm")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_fh2hm")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_fh2hm")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_fh2hm")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_u4h0k")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_u4h0k")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_u4h0k")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_u4h0k")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u4h0k")
 action_mode = 0
 text = "Exit Game"
 
 [node name="Logo" type="Sprite2D" parent="VBoxContainer"]
 position = Vector2(88.5, -177.5)
-texture = ExtResource("1_5xx1r")
+texture = ExtResource("4_4c7cm")
 
 [node name="arrow" type="Sprite2D" parent="VBoxContainer"]
 position = Vector2(-27.5, 28.5)
 rotation = 1.5708
 scale = Vector2(5, 5)
-texture = SubResource("AtlasTexture_dgb3e")
+texture = SubResource("AtlasTexture_dii25")
 
 [node name="Options" type="Control" parent="."]
 visible = false
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -130,7 +121,7 @@ grow_vertical = 2
 [node name="Sprite2D" type="Sprite2D" parent="Options"]
 position = Vector2(562.5, 323.5)
 scale = Vector2(4.79583, 4.04375)
-texture = ExtResource("4_5lvrx")
+texture = ExtResource("6_8a4ya")
 
 [node name="Back" type="Button" parent="Options"]
 layout_mode = 1
@@ -213,7 +204,7 @@ max_value = 10.0
 value = -10.0
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="Options"]
-stream = ExtResource("7_cxd84")
+stream = ExtResource("7_tvq01")
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]

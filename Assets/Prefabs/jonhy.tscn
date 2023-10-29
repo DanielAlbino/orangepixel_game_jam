@@ -74,7 +74,7 @@ height = 25.0
 atlas = ExtResource("3_e7h1g")
 region = Rect2(47, 17, 29, 3)
 
-[node name="Jonhy" type="CharacterBody2D"]
+[node name="Jonhy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 15
 collision_mask = 15
 script = ExtResource("1_qkqkp")
@@ -89,12 +89,16 @@ animation = &"Death"
 frame_progress = 0.241163
 
 [node name="Area2D" type="Area2D" parent="."]
+light_mask = 7
+visibility_layer = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(0.8, 0.8)
 shape = SubResource("CapsuleShape2D_8syf4")
 
 [node name="detect_bullets" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detect_bullets"]
 position = Vector2(0, 0.5)
@@ -119,6 +123,8 @@ value = 50.0
 texture_progress = SubResource("AtlasTexture_nm3md")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+light_mask = 3
+visibility_layer = 3
 position = Vector2(-0.300011, 1.30721)
 rotation = -1.5708
 texture = ExtResource("4_jtlx8")
@@ -129,6 +135,8 @@ texture_scale = 2.0
 stream = ExtResource("5_ursiv")
 volume_db = -10.0
 bus = &"SFX"
+
+[node name="Pointer" type="Node2D" parent="."]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

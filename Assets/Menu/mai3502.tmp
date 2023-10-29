@@ -215,7 +215,6 @@ value = -10.0
 [node name="sfx" type="AudioStreamPlayer2D" parent="Options"]
 stream = ExtResource("7_cxd84")
 
-[connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
 [connection signal="focus_entered" from="VBoxContainer/Start" to="." method="_on_start_focus_entered"]
 [connection signal="mouse_entered" from="VBoxContainer/Start" to="." method="_on_start_mouse_entered"]

@@ -1,12 +1,12 @@
-extends Control
+extends Node
 
+@onready var video = $VideoStreamPlayer
 @onready var btn_start = $VBoxContainer/Start
 @onready var btn_options = $VBoxContainer/Options
 @onready var btn_exit = $VBoxContainer/Exit
 @onready var arrow = $VBoxContainer/arrow
 @onready var sound = $Menu_Music
 @onready var opt = $Options
-@onready var video = $VideoStreamPlayer
 @onready var masterVolume = $Options/Master_Slider
 @onready var musicVolume = $Options/Music_Slider
 @onready var sfxVolume = $Options/SFX_Slider
@@ -14,6 +14,7 @@ extends Control
 var user_settings: UserSettings
 
 func _on_ready():
+	video.play()
 	sound.play()
 	btn_start.grab_focus()
 	arrow.position.y = btn_start.position.y + 35
@@ -21,6 +22,7 @@ func _on_ready():
 	masterVolume.value = user_settings.master_volume
 	musicVolume.value = user_settings.music_volume
 	sfxVolume.value = user_settings.sfx_volume
+
 
 func _on_start_pressed():
 	if Input.is_action_pressed("shoot"):

@@ -260,6 +260,8 @@ grow_vertical = 2
 text = "PAUSE"
 
 [node name="Pointer" type="Node2D" parent="."]
+light_mask = 0
+visibility_layer = 0
 
 [node name="Marker" type="Marker2D" parent="Pointer"]
 position = Vector2(13, 6)

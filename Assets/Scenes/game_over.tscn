@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvg7balfo65"]
+[gd_scene load_steps=5 format=3 uid="uid://bvg7balfo65"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/game_over.gd" id="1_fjap4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gnxu8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pf5tx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q2gqp"]
 
 [node name="GameOver" type="Node2D"]
 script = ExtResource("1_fjap4")
@@ -15,26 +17,20 @@ offset_bottom = 647.0
 
 [node name="Label" type="Label" parent="Panel"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -304.5
-offset_top = -170.5
-offset_right = 269.5
-offset_bottom = -30.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 100
-text = "GAME OVER"
+offset_left = 16.0
+offset_top = 15.0
+offset_right = 1142.0
+offset_bottom = 87.0
+theme_override_font_sizes/font_size = 38
+text = "You died! All the hostages have died after you"
+autowrap_mode = 1
 
 [node name="restart" type="Button" parent="Panel"]
 layout_mode = 0
 offset_left = 534.0
-offset_top = 330.0
+offset_top = 306.0
 offset_right = 599.0
-offset_bottom = 361.0
+offset_bottom = 337.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_gnxu8")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_gnxu8")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_gnxu8")
@@ -44,10 +40,10 @@ text = "Restart"
 
 [node name="exit" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 526.0
-offset_top = 369.0
-offset_right = 610.0
-offset_bottom = 400.0
+offset_left = 527.0
+offset_top = 385.0
+offset_right = 611.0
+offset_bottom = 416.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_pf5tx")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_pf5tx")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_pf5tx")
@@ -55,5 +51,20 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_pf5tx")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_pf5tx")
 text = "Exit game"
 
+[node name="new_level" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 527.0
+offset_top = 342.0
+offset_right = 610.0
+offset_bottom = 373.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_q2gqp")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_q2gqp")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_q2gqp")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_q2gqp")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_q2gqp")
+text = "New level
+"
+
 [connection signal="pressed" from="Panel/restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="Panel/exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Panel/new_level" to="." method="_on_new_level_pressed"]

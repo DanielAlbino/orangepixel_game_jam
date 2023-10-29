@@ -9,6 +9,7 @@ var deathTimer = 0.05
 var speed = 90
 var teleporter
 var beingTeleported = false
+
 func _ready():
 	teleporter = $"../teleporter/safePoint"
 	spr.play("Idle")
@@ -44,8 +45,6 @@ func _on_area_2d_body_entered(body):
 		if life > 0:
 			life -= 1
 			
-
-
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("teleporter"):
 		isFollowingPlayer = false

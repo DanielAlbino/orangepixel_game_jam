@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://52h30vf1ap4e"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Respawn.gd" id="1_mxlf5"]
+
+[node name="Respawn" type="Node2D"]
+position = Vector2(713, 163)
+script = ExtResource("1_mxlf5")
+metadata/_edit_group_ = true
+
+[node name="spanwer_1" type="Marker2D" parent="."]

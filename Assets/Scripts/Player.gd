@@ -12,7 +12,6 @@ var speed = 100
 @onready var sound = $AudioStreamPlayer2D
 @onready var light = $PointLight2D
 @onready var msg = $messages
-@onready var gameover = $Camera2D/GameOver
 
 var lightTimer = 0.03
 var bullet_shoot_speed = 0
@@ -23,7 +22,7 @@ var hosts = 0
 var deathHost = 0
 var hasDroppedBullets = false
 var hasDroppedHealth = false
-var mousepos 
+var mousepos
 # Constant params
 const bulletPath = preload("res://Assets/Prefabs/bullets.tscn")
 
@@ -52,6 +51,7 @@ func _physics_process(_delta):
 	HpCounter.text = str(health)
 	bulletsBar.value = bullets
 	BulletCounter.text = str(bullets)
+		
 	if health > 0 && ( hosts != 3 || deathHost != 3  || deathHost + hosts != 3) :
 		handleInputs()
 		move_and_slide()
@@ -59,9 +59,14 @@ func _physics_process(_delta):
 		if bullets == 0:
 			msg.text = "I need ammo"
 			msg.visible = true
+		else:
+			msg.visible = false
+			
 		if health <= 5 && health > 0:
 			msg.text = "I am dying"
 			msg.visible = true
+		else:
+			msg.visible = false
 			
 		if $Pointer/Marker.global_position <self.global_position:
 			spr.flip_h = true
@@ -76,9 +81,9 @@ func _physics_process(_delta):
 	else:
 		if health <= 0:
 			health = 0
+			msg.visible = false
 			spr.play("Death")
 			_delta=0
-	
 
 func countCoins():
 	coinCounter.text = str(coinCount)
@@ -118,15 +123,20 @@ func handleInputs():
 		
 func shoot(bullet_shoot_pos):
 	bullets -= 1
+	var mouse = get_global_mouse_position()
+	mouse.x += 6
+	mouse.y += 6
 	var bullet = bulletPath.instantiate()
 	get_parent().add_child(bullet)
 	sound.play()
 	var _position = $Marker2D.global_position
+	
 	if spr.flip_h:
 		_position.x -= 28
+		
 	bullet.position = _position
 	bullet.rotation = $Pointer.rotation
-	bullet.velocity = (get_global_mouse_position() - bullet.position).normalized()
+	bullet.velocity = ( mouse - bullet.position).normalized()
 	
 func extraBullets():
 	if coinCount == 0 || coinCount < 5:
